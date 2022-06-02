@@ -1,14 +1,20 @@
 package com.mockUIBackend.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee")
-public class Employee {
+public class Employee implements Serializable {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Integer id;
 	private String firstName;
 	private String lastName;

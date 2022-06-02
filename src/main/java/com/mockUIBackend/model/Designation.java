@@ -1,11 +1,13 @@
 package com.mockUIBackend.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="designation")
-public class Designation {
+public class Designation implements Serializable {
 	
 	private Integer id;
 	
