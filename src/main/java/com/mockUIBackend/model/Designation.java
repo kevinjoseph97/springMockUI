@@ -2,15 +2,23 @@ package com.mockUIBackend.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="designation")
 public class Designation implements Serializable {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "designation_id")
 	private Integer id;
 	
+	@Column(name = "designation_name")
 	private String designation;
 	
 	public Designation() {
