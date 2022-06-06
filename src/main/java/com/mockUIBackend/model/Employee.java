@@ -3,13 +3,19 @@ package com.mockUIBackend.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 
 
 
@@ -22,16 +28,36 @@ public class Employee implements Serializable {
 	private Integer id;
 	
 	@Column(name = "first_name")
-
+	@NotNull(message = "First Name Is Required")
 	private String firstName;
 	
+	@Column(name ="last_name")
+	@NotNull(message = "Last Name Is Required")
 	private String lastName;
+	
+	@Column(name ="joining_date")
 	private LocalDate joiningDate;
+	
+	@Column(name ="email_address")
+	@NotNull(message = "Email Is Required")
 	private String emailAddress;
+	
+	@Column(name="phone_number")
+	@NotNull(message = "Phone Number is Required")
+	@Pattern(regexp = "^[0-9]{10}$")
 	private String phoneNumber;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name="designation_id")
 	private Designation designation;
+	
+	@Column(name ="picture")
 	private String picture;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "city_id")
 	private City city;
+	
 	
 	public Employee() {
 		
@@ -129,11 +155,6 @@ public class Employee implements Serializable {
 				+ joiningDate + ", emailAddress=" + emailAddress + ", phoneNumber=" + phoneNumber + ", picture="
 				+ picture + "]";
 	}
-	
-	
-	
-	
-	
-	
+
 
 }
