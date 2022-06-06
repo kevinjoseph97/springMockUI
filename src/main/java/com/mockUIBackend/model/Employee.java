@@ -3,11 +3,15 @@ package com.mockUIBackend.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+
 
 @Entity
 @Table(name = "employee")
@@ -16,7 +20,11 @@ public class Employee implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Integer id;
+	
+	@Column(name = "first_name")
+
 	private String firstName;
+	
 	private String lastName;
 	private LocalDate joiningDate;
 	private String emailAddress;
