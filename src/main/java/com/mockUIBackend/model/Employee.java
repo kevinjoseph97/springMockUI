@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -40,6 +41,7 @@ public class Employee implements Serializable {
 	
 	@Column(name ="email_address")
 	@NotNull(message = "Email Is Required")
+	@Email(message = "Please enter a valid Email")
 	private String emailAddress;
 	
 	@Column(name="phone_number")
