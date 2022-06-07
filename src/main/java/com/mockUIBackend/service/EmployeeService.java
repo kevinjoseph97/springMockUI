@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class EmployeeService {
 	private DesignationRepo desigRepo;
 	
 	
+	
 	public EmployeeDTO getEmployee (Integer id) throws EmplNotFoundException {
 		
 		Optional<Employee> optionalEmployee = empRepo.findById(id);
@@ -45,6 +47,12 @@ public class EmployeeService {
 		
 		return eDTO;
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
