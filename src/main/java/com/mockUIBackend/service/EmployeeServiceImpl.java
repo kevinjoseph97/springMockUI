@@ -5,7 +5,7 @@ import java.util.List;
 import com.mockUIBackend.DTO.EmployeeDTO;
 import com.mockUIBackend.exception.EmplNotFoundException;
 
-public interface EmployeeService {
+public interface EmployeeServiceImpl {
 	
 	public EmployeeDTO getEmployee(Integer id);
 	
