@@ -14,6 +14,8 @@ import com.mockUIBackend.DTO.CityDTO;
 import com.mockUIBackend.DTO.DesignationDTO;
 import com.mockUIBackend.DTO.EmployeeDTO;
 import com.mockUIBackend.exception.EmplNotFoundException;
+import com.mockUIBackend.model.City;
+import com.mockUIBackend.model.Designation;
 import com.mockUIBackend.model.Employee;
 import com.mockUIBackend.repository.CityRepo;
 import com.mockUIBackend.repository.DesignationRepo;
@@ -76,7 +78,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Integer addEmployee(EmployeeDTO employeeDTO) {
 		// TODO Auto-generated method stub
-		return null;
+		Employee e =  EmployeeDTO.prepareEntity(employeeDTO);
+		Optional<City> optionCity = cityRepo.findById(employeeDTO.getCity().getId());
+		City city = optionCity.orElseThrow(() -> 
+			new EmplNotFoundException("No City Found"));
+		
+		Optional<Designation> optionDesignation = desigRepo.findById(employeeDTO.getDesignation().getId());
+		Designation designation = optionDesignation.orElseThrow(() -> 
+			new EmplNotFoundException("No Designation Found"));
+		
+		
+		e.setDesignation(designation);
+		e.setCity(city);
+		
+		Employee emplFromDb	= empRepo.save(e);
+		
+		return emplFromDb.getId();
 	}
 
 
