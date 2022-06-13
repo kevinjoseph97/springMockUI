@@ -1,5 +1,6 @@
 package com.mockUIBackend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,9 +52,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
 	@Override
-	public List<EmployeeDTO> getAllEmployees() {
+	public List<EmployeeDTO> getAllEmployees() throws EmplNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		Iterable<Employee> eList = empRepo.findAll();
+		List<EmployeeDTO> eDTOList = new ArrayList<EmployeeDTO>();
+		eList.forEach(e -> {
+			EmployeeDTO eDTO =  EmployeeDTO.prepareDTO(e);
+			DesignationDTO dDTO = DesignationDTO.prepareDTO(e.getDesignation());
+			CityDTO cDTO = CityDTO.prepareDTO(e.getCity());
+			eDTO.setDesignation(dDTO);
+			eDTO.setCity(cDTO);
+			eDTOList.add(eDTO);
+		});
+		
+		if (eDTOList.isEmpty()) {
+			throw new EmplNotFoundException("No Employees Present");
+		}
+		
+		return eDTOList;
 	}
 
 

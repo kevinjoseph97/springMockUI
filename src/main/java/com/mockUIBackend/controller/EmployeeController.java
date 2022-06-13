@@ -41,8 +41,9 @@ public class EmployeeController {
 	public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable Integer id) throws EmplNotFoundException{
 		EmployeeDTO e = emplService.getEmployee(id);
 		return new ResponseEntity<EmployeeDTO>(e, HttpStatus.OK);
-		
 	}
+	
+	
 
 	
 	
