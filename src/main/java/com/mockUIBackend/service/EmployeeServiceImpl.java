@@ -100,21 +100,58 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public void updateEmployee(Integer id, EmployeeDTO employeeDTO) {
 		// TODO Auto-generated method stub
+		Optional<Employee> optionEmp = empRepo.findById(employeeDTO.getId());
+		Employee employee = optionEmp.orElseThrow(() -> 
+		new EmplNotFoundException("Employee Not Found"));
 		
+		employee.setFirstName(employeeDTO.getFirstName());
+		employee.setLastName(employeeDTO.getLastName());
+		employee.setJoiningDate(employeeDTO.getJoiningDate());
+		employee.setEmailAddress(employeeDTO.getEmailAddress());
+		employee.setPhoneNumber(employeeDTO.getPhoneNumber());
+		
+		Optional<City> optionCity = cityRepo.findById(employeeDTO.getCity().getId());
+		City city = optionCity.orElseThrow(() -> 
+				new EmplNotFoundException("No City Found"));
+		
+		Optional<Designation> optionDesignation = desigRepo.findById(employeeDTO.getDesignation().getId());
+		Designation designation = optionDesignation.orElseThrow(()->
+				new EmplNotFoundException("Designation Not Found"));
+				
+		
+		employee.setDesignation(designation);
+		employee.setCity(city);
+		
+		employee = empRepo.save(employee);
+		DesignationDTO dDTO = DesignationDTO.prepareDTO(designation);
+		CityDTO cDTO = CityDTO.prepareDTO(city);
+		
+				
 	}
 
 
 	@Override
 	public List<String> getDesignations() throws EmplNotFoundException {
 		// TODO Auto-generated method stub
-		return null;
+		
+		Iterable<Designation> designations = desigRepo.findAll();
+		List<String> designationNames = new ArrayList<>();
+		for (Designation desig: designations) {
+			designationNames.add(desig.getDesignation());
+		}
+		
+		return designationNames;
 	}
 
 
 	@Override
 	public List<String> getCities() throws EmplNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Iterable<City> cities = cityRepo.findAll();
+		List<String> cityNames = new ArrayList<String>();
+		for (City city: cities) {
+			cityNames.add(city.getCity());
+		}
+		return cityNames;
 	}
 	
 	
