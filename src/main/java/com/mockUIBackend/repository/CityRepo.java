@@ -1,11 +1,12 @@
 package com.mockUIBackend.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.mockUIBackend.model.City;
 
 @Repository
-public interface CityRepo extends CrudRepository<City, Integer> {
+public interface CityRepo extends JpaRepository<City, Integer> {
 
 }
